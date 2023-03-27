@@ -15,6 +15,11 @@ import (
 	"golang.org/x/exp/slices"
 )
 
+const (
+	// MediaTypeNydusBlob is the MIME type used for CRI remote snapshotter nydus.
+	MediaTypeNydusBlob = "application/vnd.oci.image.layer.nydus.blob.v1"
+)
+
 // BlobInfoFromOCI1Descriptor returns a types.BlobInfo based on the input OCI1 descriptor.
 func BlobInfoFromOCI1Descriptor(desc imgspecv1.Descriptor) types.BlobInfo {
 	return types.BlobInfo{
@@ -42,7 +47,7 @@ type OCI1 struct {
 // useful for validation anyway.
 func SupportedOCI1MediaType(m string) error {
 	switch m {
-	case imgspecv1.MediaTypeDescriptor, imgspecv1.MediaTypeImageConfig, imgspecv1.MediaTypeImageLayer, imgspecv1.MediaTypeImageLayerGzip, imgspecv1.MediaTypeImageLayerNonDistributable, imgspecv1.MediaTypeImageLayerNonDistributableGzip, imgspecv1.MediaTypeImageLayerNonDistributableZstd, imgspecv1.MediaTypeImageLayerZstd, imgspecv1.MediaTypeImageManifest, imgspecv1.MediaTypeLayoutHeader, ociencspec.MediaTypeLayerEnc, ociencspec.MediaTypeLayerGzipEnc:
+	case imgspecv1.MediaTypeDescriptor, imgspecv1.MediaTypeImageConfig, imgspecv1.MediaTypeImageLayer, imgspecv1.MediaTypeImageLayerGzip, imgspecv1.MediaTypeImageLayerNonDistributable, imgspecv1.MediaTypeImageLayerNonDistributableGzip, imgspecv1.MediaTypeImageLayerNonDistributableZstd, imgspecv1.MediaTypeImageLayerZstd, imgspecv1.MediaTypeImageManifest, imgspecv1.MediaTypeLayoutHeader, ociencspec.MediaTypeLayerEnc, ociencspec.MediaTypeLayerGzipEnc, MediaTypeNydusBlob:
 		return nil
 	default:
 		return fmt.Errorf("unsupported OCIv1 media type: %q", m)
